@@ -145,7 +145,7 @@ module KPYTHON
 
   context var _:Id[HOLE];
 
-  rule <k> var X:Id[N:Int]; => . ...</k>
+  rule <k> var X:Id[N:Int];... => . ...</k>
        <env> Env => Env[X <- L] </env>
        <store>... .Map => L |-> array(L +Int 1, N)
                           (L +Int 1) ... (L +Int N) |-> undefined ...</store>

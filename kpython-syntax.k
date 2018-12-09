@@ -1,6 +1,8 @@
 module KPYTHON-SYNTAX
   imports DOMAINS-SYNTAX
 
+  syntax Id ::= "Object" [token] | "Main" [token]
+
   syntax Decl ::= "def" Id "(" Ids ")" ":" Block
                 | "class" Id ":" Block
 
@@ -15,12 +17,12 @@ module KPYTHON-SYNTAX
                | Exp "." Id
                > Exp "[" Exps "]"        [strict]
                > Exp "(" Exps ")"        [strict(2)]
-               | "-" Exp                 [strict]
+               | "-" Exp               [strict]
                | "len" "(" Exp ")"    [strict]
                | "read" "(" ")"
                > left:
                  Exp "*" Exp             [strict, left]
-                 Exp "**" Exp             [strict, left]
+               | Exp "**" Exp             [strict, left]
                | Exp "/" Exp             [strict, left]
                | Exp "%" Exp             [strict, left]
                > left:
@@ -38,4 +40,32 @@ module KPYTHON-SYNTAX
                  Exp "&&" Exp            [strict(1), left]
                | Exp "||" Exp            [strict(1), left]
                > Exp "=" Exp             [strict(2), right]
+
+  syntax Ids  ::= List{Id,","}
+
+  syntax Exps ::= List{Exp,","}          [strict]
+
+  syntax Block ::= "{" "}"
+                | "{" Stmts "}"
+
+  syntax Stmt ::= Decl | Block
+                | Exp ";"                               [strict]
+                | "if" "(" Exp ")" Block "else" Block   [avoid, strict(1)]
+                | "if" "(" Exp ")" Block
+                | "while" "(" Exp ")" Block
+                | "for" "(" Stmts Exp ";" Exp ")" Block
+                | "return" Exp ";"                      [strict]
+                | "return" ";"
+                | "print" "(" Exps ")" ";"              [strict]
+
+  syntax Stmts ::= Stmt
+                 | Stmts Stmts                          [right]
+
+  syntax Val ::= Int | Bool | String
+               | array(Int,Int)
+  syntax Vals ::= List{Val,","}
+  syntax Exp ::= Val
+  syntax Exps ::= Vals
+  syntax KResult ::= Val
+  syntax KResult ::= Vals
 endmodule
