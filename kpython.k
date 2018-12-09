@@ -4,9 +4,9 @@ module KPYTHON-SYNTAX
   syntax Id ::= "Object" [token] | "Main" [token]
 
   syntax Decl ::= "var" Exps ";"
-                | "method" Id "(" Ids ")" Block  // called "function" in SIMPLE
+                | "def" Id "(" Ids ")" Block  // called "function" in SIMPLE
                 | "class" Id Block               // KOOL
-                | "class" Id "extends" Id Block  // KOOL
+                | "class" Id "(" Id ")" Block  // KOOL
 
   syntax Exp ::= Int | Bool | String | Id
                | "this"                                 // KOOL
@@ -20,7 +20,7 @@ module KPYTHON-SYNTAX
                > Exp "[" Exps "]"        [strict]
                > Exp "(" Exps ")"        [strict(2)]    // was strict in SIMPLE
                | "-" Exp                 [strict]
-               | "sizeOf" "(" Exp ")"    [strict]
+               | "len" "(" Exp ")"    [strict]
                | "read" "(" ")"
                > left:
                  Exp "*" Exp             [strict, left]
@@ -57,7 +57,7 @@ module KPYTHON-SYNTAX
                 | "if" "(" Exp ")" Block "else" Block   [avoid, strict(1)]
                 | "if" "(" Exp ")" Block
                 | "while" "(" Exp ")" Block
-            | "for" "(" Stmts Exp ";" Exp ")" Block
+                | "for" "(" Stmts Exp ";" Exp ")" Block
                 | "return" Exp ";"                      [strict]
                 | "return" ";"
                 | "print" "(" Exps ")" ";"              [strict]
@@ -82,7 +82,7 @@ module KPYTHON-SYNTAX
 
 //@ New desugaring rule
 
-  rule class C:Id S => class C extends Object S                     // KOOL
+  rule class C:Id S => class C (Object) S                     // KOOL
 
 endmodule
 
@@ -98,30 +98,22 @@ module KPYTHON
   syntax CrntObjCellFragment
 
   configuration <T color="red">
-                  <threads color="orange">
-                    <thread multiplicity="*" type="Set" color="yellow">
-                      <k color="green"> $PGM:Stmts ~> execute </k>
-                    //<br/> // TODO(KORE): support latex annotations #1799
-                      <control color="cyan">
-                        <fstack color="blue"> .List </fstack>
-                        <xstack color="purple"> .List </xstack>
-                      //<br/> // TODO(KORE): support latex annotations #1799
-                        <crntObj color="Fuchsia">  // KOOL
-                           <crntClass> Object </crntClass>
-                           <envStack> .List </envStack>
-                           <location multiplicity="?"> .K </location>
-                        </crntObj>
-                      </control>
-                    //<br/> // TODO(KORE): support latex annotations #1799
-                      <env color="violet"> .Map </env>
-                      <holds color="black"> .Map </holds>
-                      <id color="pink"> 0 </id>
-                    </thread>
-                  </threads>
+                  <k color="green"> $PGM:Stmts ~> execute </k>
+                //<br/> // TODO(KORE): support latex annotations #1799
+                  <control color="cyan">
+                    <fstack color="blue"> .List </fstack>
+                    <xstack color="purple"> .List </xstack>
+                  //<br/> // TODO(KORE): support latex annotations #1799
+                    <crntObj color="Fuchsia">  // KOOL
+                        <crntClass> Object </crntClass>
+                        <envStack> .List </envStack>
+                        <location multiplicity="?"> .K </location>
+                    </crntObj>
+                  </control>
+                //<br/> // TODO(KORE): support latex annotations #1799
+                  <env color="violet"> .Map </env>
                 //<br/> // TODO(KORE): support latex annotations #1799
                   <store color="white"> .Map </store>
-                  <busy color="cyan">.Set </busy>
-                  <terminated color="red"> .Set </terminated>
                   <input color="magenta" stream="stdin"> .List </input>
                   <output color="brown" stream="stdout"> .List </output>
                   <nextLoc color="gray"> 0 </nextLoc>
@@ -137,10 +129,6 @@ module KPYTHON
                   </classes>
                 </T>
 
-
-
-
-
   syntax Val ::= Int | Bool | String
                | array(Int,Int)
   syntax Exp ::= Val
@@ -148,15 +136,12 @@ module KPYTHON
   syntax KResult ::= Val
   syntax KResult ::= Vals
 
-
-
   syntax KItem ::= "undefined"  [latex(\bot)]
 
   rule <k> var X:Id; => . ...</k>
        <env> Env => Env[X <- L] </env>
        <store>... .Map => L |-> undefined ...</store>
        <nextLoc> L:Int => L +Int 1 </nextLoc>
-
 
   context var _:Id[HOLE];
 
@@ -166,7 +151,6 @@ module KPYTHON
                           (L +Int 1) ... (L +Int N) |-> undefined ...</store>
        <nextLoc> L:Int => L +Int 1 +Int N </nextLoc>
     when N >=Int 0
-
 
   syntax Id ::= "$1" | "$2"
   rule var X:Id[N1:Int, N2:Int, Vs:Vals];
@@ -219,10 +203,7 @@ module KPYTHON
     [structural, anywhere]
 
 
-  rule sizeOf(array(_,N)) => N
-
-
-
+  rule len(array(_,N)) => N
 
   rule <k> return(V:Val); ~> _ => V ~> K </k>
        <control>
@@ -235,15 +216,15 @@ module KPYTHON
   syntax Val ::= "nothing"
   rule return; => return nothing;   [macro]
 
-
   rule <k> read() => I ...</k> <input> ListItem(I:Int) => .List ...</input>  [read]
-
 
   context (HOLE => lvalue(HOLE)) = _
 
-  rule <k> loc(L) = V:Val => V ...</k> <store>... L |-> (_ => V) ...</store>
-    [assignment]
-
+  rule <k> (X::Id = V:Val; => var X; X = V;)  ...</k>
+      <env> Env </env>
+      when notBool (X in keys(Env))  [structural]
+  
+  rule <k> loc(L) = V:Val => V ...</k> <store>... L |-> (_ => V) ...</store> [assignment]
 
   rule {} => .  [structural]
   rule <k> { S } => S ~> setEnv(Env) ...</k>  <env> Env </env>  [structural]
@@ -286,35 +267,6 @@ module KPYTHON
        </control>
        <env> _ => Env </env>
 
-
-
-  // TODO(KORE): ..Bag should be . throughout this definition #1772
-  rule (<thread>... <k>.</k> <holds>H</holds> <id>T</id> ...</thread> => .Bag)
-  
-       <busy> Busy => Busy -Set keys(H) </busy>
-       <terminated>... .Set => SetItem(T) ...</terminated>
-
-  rule <k> join T:Int; => . ...</k>
-       <terminated>... SetItem(T) ...</terminated>
-
-  rule <k> acquire V:Val; => . ...</k>
-       <holds>... .Map => V |-> 0 ...</holds>
-       <busy> Busy (.Set => SetItem(V)) </busy>
-    when (notBool(V in Busy:Set))  [acquire]
-
-  rule <k> acquire V; => . ...</k>
-       <holds>... V:Val |-> (N:Int => N +Int 1) ...</holds>
-
-  rule <k> release V:Val; => . ...</k>
-       <holds>... V |-> (N => N:Int -Int 1) ...</holds>
-    when N >Int 0
-
-  rule <k> release V; => . ...</k> <holds>... V:Val |-> 0 => .Map ...</holds>
-       <busy>... SetItem(V) => .Set ...</busy>
-
-  rule <k> rendezvous V:Val; => . ...</k>
-       <k> rendezvous V; => . ...</k>  [rendezvous]
-
 //@ \subsection{Unchanged auxiliary operations from untyped SIMPLE}
 
   syntax Stmts ::= mkDecls(Ids,Vals)  [function]
@@ -335,8 +287,8 @@ module KPYTHON
   syntax Exp ::= lvalue(K)
   syntax Val ::= loc(Int)
 
-  rule <k> lvalue(X:Id => loc(L)) ...</k> <env>... X |-> L:Int ...</env>
-    [structural]
+  rule <k> lvalue(X:Id => loc(L)) ...</k>
+       <env>... X |-> L:Int ...</env> [structural]
 
   context lvalue(_::Exp[HOLE::Exps])
   context lvalue(HOLE::Exp[_::Exps])
@@ -369,21 +321,9 @@ module KPYTHON
           <crntObj> Obj' => <crntClass> Class </crntClass> <envStack> EnvStack </envStack> </crntObj>
        </control>
 
-  rule <thread>...
-         <k> spawn S => !T:Int ...</k>
-         <env> Env </env>
-         <crntObj> Obj </crntObj>
-       ...</thread>
-       (.Bag => <thread>...
-               <k> S </k>
-               <env> Env </env>
-               <id> !T </id>
-               <crntObj> Obj </crntObj>
-             ...</thread>)
-
 //@ \subsection{Semantics of the new KOOL constructs}
 
-  rule <k> class Class1 extends Class2 { S } => . ...</k>
+  rule <k> class Class1 (Class2) { S } => . ...</k>
        <classes>... (.Bag => <classData>
                             <className> Class1 </className>
                             <baseClass> Class2 </baseClass>
@@ -391,7 +331,7 @@ module KPYTHON
                         </classData>)
        ...</classes>  [structural]
 
-  rule <k> method F:Id(Xs:Ids) S => . ...</k>
+  rule <k> def F:Id(Xs:Ids) S => . ...</k>
        <crntClass> Class:Id </crntClass>
        <location> OL:Int </location>
        <env> Env => Env[F <- L] </env>
@@ -529,11 +469,6 @@ module KPYTHON
 
 
   rule (C) objectClosure(_ , EnvStack) => objectClosure(C ,EnvStack)
-
-
-
-
-
 
   rule <k> lvalue(X:Id => this . X) ...</k>  <env> Env </env>
     when notBool(X in keys(Env))  [structural]
