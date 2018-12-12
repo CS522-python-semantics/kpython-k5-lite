@@ -5,10 +5,12 @@ module KPYTHON-SYNTAX
 
   syntax Decl ::= "def" Id "(" Ids ")" ":" Block
                 | "class" Id ":" Block
+                | "class" Id "(" Id ")" ":" Block
+                | "def" Id "(" "self" "," Ids ")" ":" Block
 
   syntax Exp ::= Int | Bool | String | Id
                | "self"
-               | "super"
+               | "super()"
                | "(" Exp ")"             [bracket]
                | "++" Exp
                | Exp "instanceOf" Id     [strict(1)]
@@ -50,8 +52,8 @@ module KPYTHON-SYNTAX
 
   syntax Stmt ::= Decl | Block
                 | Exp ";"                               [strict]
-                | "if" "(" Exp ")" Block "else" Block   [avoid, strict(1)]
-                | "if" "(" Exp ")" Block
+                | "if" Exp ":" Block "else" ":" Block   [avoid, strict(1)]
+                | "if" Exp ":" Block
                 | "while" "(" Exp ")" Block
                 | "for" "(" Stmts Exp ";" Exp ")" Block
                 | "return" Exp ";"                      [strict]
@@ -63,9 +65,15 @@ module KPYTHON-SYNTAX
 
   syntax Val ::= Int | Bool | String
                | array(Int,Int)
+  rule _:Val; => .
+  rule S1::Stmts S2::Stmts => S1 ~> S2  [structural]
+
   syntax Vals ::= List{Val,","}
   syntax Exp ::= Val
   syntax Exps ::= Vals
   syntax KResult ::= Val
   syntax KResult ::= Vals
+  syntax Val ::= "None"
+  rule {} => .  [structural]
+
 endmodule

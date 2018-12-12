@@ -313,7 +313,6 @@ module KPYTHON
            => mkDecls(Xs,Vs) S return; </k>
        <env> Env => .Map </env>
        <store>... OL |-> objectClosure(_, EnvStack)...</store>
-     //<br/> // TODO(KORE): support latex annotations #1799
        <control>
           <xstack> XS </xstack>
           <fstack> .List => ListItem(fstackFrame(Env, K, XS, <crntObj> Obj' </crntObj>))
@@ -464,8 +463,6 @@ module KPYTHON
 //TODO: remove the sort cast ::Id of C above, when sort inference bug fixed
 
   rule objectClosure(_, .List) instanceOf _ => false
-
-
 
 
   rule (C) objectClosure(_ , EnvStack) => objectClosure(C ,EnvStack)
