@@ -1,0 +1,17 @@
+// Testing recursion
+
+class C:
+  def f(x):
+    if x <= 1:
+      return 1
+    else: 
+      return x * f(x - 1)
+
+  def __init__():
+    print(f(f(5)), "\n")
+c = C()
+
+
+// (5!)!
+
+
