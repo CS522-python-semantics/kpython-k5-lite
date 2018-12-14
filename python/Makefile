@@ -1,8 +1,11 @@
+test:
+	./testkpython
+
 all:
 	kompile kpython.k
 
-clean:
+clean: test-clean
 	rm -rf kpython-kompiled
 
 test-clean:
-	rm -rf kpython-kompiled
+	rm tmp/*
