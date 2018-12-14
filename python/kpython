@@ -1,4 +1,8 @@
 #!/bin/bash
+if [[ $# -eq 0 ]] ; then
+    echo "Please specify a python file"
+    exit 1
+fi
 python parse/parse.py $1
 krun parse/parsed.python --output none 2>/dev/null
 rm parse/parsed.python
