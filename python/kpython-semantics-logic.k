@@ -11,6 +11,7 @@ module KPYTHON-SEMANTICS-LOGIC
   rule if E S => if E S else {}                                     [macro]
   rule def X:Id (self) B => def X (.Ids) B                              [macro]
   rule def X:Id (self, Y:Ids) B => def X (Y) B                [macro]
+  rule print(E:Exps); => iprint(E);iprint("\n");            [macro]
 
   rule if  true S else _ => S
   rule if false _ else S => S
@@ -25,8 +26,9 @@ module KPYTHON-SEMANTICS-LOGIC
 
   rule <k> read() => I ...</k> <input> ListItem(I:Int) => .List ...</input>            [read]
 
-  rule <k> print(V:Val, Es => Es); ...</k> <output>... .List => ListItem(V) </output>  [print]
-  rule print(.Vals); => .                                               [structural]
+  syntax Stmt ::= "iprint" "(" Exps ")" ";"              [strict]
+  rule <k> iprint(V:Val, Es => Es); ...</k> <output>... .List => ListItem(V) </output>  [print]
+  rule iprint(.Vals); => .                                               [structural]
 
   rule <k> X:Id => V ...</k>
       <env>... X |-> L ...</env>

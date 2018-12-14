@@ -5,10 +5,10 @@ class C:
     if x <= 1:
       return 1
     else: 
-      return x * f(x - 1)
+      return x * self.f(x - 1)
 
   def __init__(self):
-    print(f(f(5)), "\n")
+    print(self.f(self.f(5)))
 
 c = C()
 
