@@ -3,13 +3,13 @@
 class C:
   i = 0
   j = 0
-  def __init__(x):
+  def __init__(self, x):
     i = x
     j = x+1
-  def add(d):
+  def add(self, d):
     i = i+d
     j = j-d
-  def print2():
+  def print2(self):
     print(i, " ", j, "\n")
 
 if __name__ == '__main__':

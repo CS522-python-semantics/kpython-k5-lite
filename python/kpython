@@ -1,4 +1,4 @@
 #!/bin/bash
 python parse/parse.py $1
-krun parse/parsed.python 2>/dev/null
+krun parse/parsed.python --output none 2>/dev/null
 rm parse/parsed.python

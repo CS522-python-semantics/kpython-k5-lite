@@ -1,5 +1,5 @@
 class C:
-  def foo():
+  def foo(self):
     try:
       raise 5
       print(17)

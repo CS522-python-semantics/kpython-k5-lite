@@ -3,15 +3,16 @@ module KPYTHON-SYNTAX
 
   syntax Id ::= "Object" [token] | "Main" [token] | "__init__" [token]
 
-  syntax Decl ::= "var" Exps ";"                        
-                | "def" Id "(" Ids ")" Block            
-                | "def" Id "(" "self" "," Ids ")" Block 
-                | "class" Id Block                      
-                | "class" Id "(" Id ")" Block           
+  syntax Decl ::= "var" Exps ";"
+                | "def" Id "(" Ids ")" Block
+                | "def" Id "(" "self" ")" Block
+                | "def" Id "(" "self" "," Ids ")" Block
+                | "class" Id Block
+                | "class" Id "(" Id ")" Block
 
   syntax Exp ::= Int | Bool | String | Id
-               | "self"                                
-               | "super" "(" ")"                           
+               | "self"
+               | "super" "(" ")"
                | "(" Exp ")"             [bracket]
                | "[" Exps "]"            [strict]
                | "range" "(" Exps ")"    [strict]

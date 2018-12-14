@@ -9,6 +9,8 @@ module KPYTHON-SEMANTICS-LOGIC
   syntax KResult ::= Vals
 
   rule if E S => if E S else {}                                     [macro]
+  rule def X:Id (self) B => def X (.Ids) B                              [macro]
+  rule def X:Id (self, Y:Ids) B => def X (Y) B                [macro]
 
   rule if  true S else _ => S
   rule if false _ else S => S
