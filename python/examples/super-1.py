@@ -1,4 +1,4 @@
-// Testing dynamic method dispatch and super
+# Testing dynamic method dispatch and super
 
 class C1:
   def m1():
@@ -25,4 +25,4 @@ o3 = C3()
 print(o3.m3(), "\n")
 
 
-// 33 
+# 33 

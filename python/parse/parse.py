@@ -30,7 +30,8 @@ for line in input:
         new_line += line.strip('\n') + " ;" + " \n" 
     else:
         new_line = line.strip('\n') + ";" + " \n" 
-
+    if "#" in new_line:
+        new_line = new_line[new_line.index("#")]+"\n"
     output.write(new_line)
 
 while indent:

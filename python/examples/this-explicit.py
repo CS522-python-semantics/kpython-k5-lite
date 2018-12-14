@@ -1,4 +1,4 @@
-// Testing the explicit use of "this"
+# Testing the explicit use of "this"
 
 class C:
   def m1():
@@ -9,4 +9,4 @@ class C:
 print((C()).m1(), "\n")
 
 
-// 13
+# 13

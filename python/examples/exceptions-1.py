@@ -14,6 +14,4 @@ try:
 except e:
   print(e,"\n")
 
-
-
-// 7
+# 7

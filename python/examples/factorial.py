@@ -1,4 +1,4 @@
-// Testing recursion
+# Testing recursion
 
 class C:
   def f(x):
@@ -9,9 +9,9 @@ class C:
 
   def __init__():
     print(f(f(5)), "\n")
+
 c = C()
 
-
-// (5!)!
+# (5!)!
 
 

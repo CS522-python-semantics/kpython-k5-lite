@@ -1,4 +1,4 @@
-// Testing new, constructor, method invocation.
+# Testing new, constructor, method invocation.
 
 class C:
   i = 0
@@ -34,5 +34,5 @@ if __name__ == '__main__':
     e = a
     print (c)
 
-// 5 6
-// 11 0
+# 5 6
+# 11 0
