@@ -1,0 +1,98 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\title{Python Semantics in K 5.0}
+
+\author{Your names and group number}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This is the report of the final project of CS522: Programming Language Semantics. We implemented a simple semantics for the Python Language, based on the Python Semantics implemented by Dwight Guth on K 3.2.1, and the untyped KOOL semantics for K 5.0.
+\end{abstract}
+
+\section{Basic K Syntax}
+This section is a summary to the K tutorial.
+\subsection{Syntax}
+\subsubsection{Attributes}
+\begin{itemize}
+    \item [left]: To tell the parser that the syntax production is left associative.
+    \item [bracket]: To tell the parser that the parenthesis is associated to the program.
+    \item [binder]: To tell the parser that "lambda" or "mu" binds to variables.
+    \item [strict]: To tell the parser that to tell k the corresponding construct has a strict version strategy. That is, all arguments should be evaluated before the semantic rule is applied.
+    \item [strict(i)]: Selective strictness. To tell the parser that which argument of syntax production is strict.
+    \item [seqstrict]: To tell the parser that the evaluation order is from left to right.
+\end{itemize}
+
+\subsubsection{Predefined constant identifiers}
+Predefined constant identifiers are variables starts with \$. The program to execute cannot contain identifiers with these names and these names are specifically reserved for the semantics.
+
+\subsection{Require and Imports}
+"Require" takes a .k file containing the language features needed for the definition. The path is relevant to the k/include folder.
+
+"imports" keyword can import another module.
+
+\subsection{Rules}
+Rules are introduced by the keyword "rule".
+\subsubsection{Variables}
+By convention, variables in the rule should start with a upper case letter. Variables could be tagged with the type associated to them. If tagged, a type checking at run time will be made. Tagging is formally saver but may make the executing speed slower.
+\subsubsection{Symbols}
+\begin{itemize}
+    \item "$=>$": Used in rules to separate the left hand side and right hand side of a rule.
+    \item "$\sim>$": This is a construct for K used in a computation structure, or computation. Read as "followed by" or "then". 
+\end{itemize}
+\subsubsection{Attributes}
+\begin{itemize}
+    \item [structural]: To tell the parser that a rule is desugaring but not a computational step. It is a light rule similar to "macros".
+    \item [heat]: To tell the parser that a rule is a heating rule.
+    \item [cool]: To tell the parser that a rule is a cooling rule.
+    \item [strict]: Same as in the Syntax section.
+    \item [seqstrict]: Same as in the Syntax section.
+\end{itemize}
+\subsubsection{Side conditions}
+Side conditions can only be bool expressions in k. It is declared after a K rule using the "when" keyword.
+\subsubsection{Anonymous variables}
+Anonymous variable is a "\_" when you want to show there is a variable but you do not care about what it is.
+\subsubsection{Cell Inside Rules}
+\begin{itemize}
+    \item Cell $<k>...</k>$ holds computations, which is a list of "~>" connected sequences of tasks.
+    \item Cell $<state>...</state>$ holds map, which is a set of bindings defined by " Variable |-> Target.
+\end{itemize}
+\subsubsection{Closures}
+Closures are like a lambda expression but also holds the environment corresponding to the environment.
+
+\subsection{Modules}
+Using different modules can help to grouping language features. Usually we put the language syntax and semantics in separate modules. 
+
+\subsection{Results}
+Result identifies the result of computation and stops K from continuing evaluating. One way to do it is to use the built in category "KResult" to tell the parser which are results. 
+
+\subsection{Builtins}
+Some builtins, for example, Int and Bool are accessible by default in earlier versions of K. However in K5.0, they are not accessible by default and we need to import the corresponding modules in order to make use of them.
+
+\subsection{Configurations and Cells}
+Configuration are constructed with cells. It starts from a "configuration" keyword and being followed by some XML-style labels which indicates the start and return point of cells.
+
+Cells:
+\begin{itemize}
+    \item $<T></T>$   The top cell.
+    \item $<k></k>$   The program.(maybe?)
+    \item $<env></env>$   The environment binds variables to locations.
+    \item $<store></store>$   The store binds locations to values.
+\end{itemize}
+
+Some identifiers could be put in the cell. For example:
+\begin{itemize}
+    \item \$PGM is the program initially passed to the k to run.
+    \item Dot . stands for nothing. .Map stands for an empty map.
+\end{itemize}
+
+\end{document}

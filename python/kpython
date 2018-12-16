@@ -4,5 +4,5 @@ if [[ $# -eq 0 ]] ; then
     exit 1
 fi
 python parse/parse.py $1
-krun parse/parsed.python --output none 2>/dev/null
+krun parse/parsed.python --output none
 rm parse/parsed.python

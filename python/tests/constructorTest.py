@@ -10,7 +10,8 @@ class C:
     self.i = self.i+d
     self.j = self.j-d
   def print2(self):
-    print(self.i, " ", self.j, "\n")
+    print(self.i)
+    print(self.j)
 
 if __name__ == '__main__':
     a = b = 5
@@ -30,9 +31,6 @@ if __name__ == '__main__':
     o.print2()
     o.add(b+1)
     o.print2()
-    d = c[0]
-    e = a
-    print (c)
 
 # 5 6
 # 11 0
