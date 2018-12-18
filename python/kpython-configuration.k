@@ -27,6 +27,12 @@ module KPYTHON-CONFIGURATION
                      </classData>
                   </classes>
                   <storeClass color="orange"> .Map </storeClass>
+                  <classStaticVars color="violet">
+                     <classStaticData multiplicity="*" type="Map" color="Fuchsia">
+                        <classStaticName color="Fuchsia"> Main </classStaticName>
+                        <classStaticDeclaration color="Fuchsia"> .Map </classStaticDeclaration>
+                     </classStaticData>
+                  </classStaticVars>
                 </T>
 
   syntax Stmt ::= "execute"

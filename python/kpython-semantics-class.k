@@ -7,15 +7,34 @@ module KPYTHON-SEMANTICS-CLASS
     syntax Val ::= objectClosure(Id, List)
     syntax KItem ::= fstackFrame(Map,K,List,K)
 
-    rule <k> class Class1 (Class2) { S } => . ...</k>
+    rule <k> class Class1:Id (Class2:Id) { S } => declareStmts(Class1, S); ...</k>
         <classes>... (.Bag => <classData>
                             <className> Class1 </className>
                             <baseClass> Class2 </baseClass>
                             <declarations> S </declarations>
                         </classData>)
-        ...</classes>  
+        ...</classes>
         <storeClass> ... .Map => Class1 |-> Class2 ... </storeClass>
+        <classStaticVars>... (.Bag => <classStaticData>
+                            <classStaticName> Class1 </classStaticName>
+                            <classStaticDeclaration> .Map </classStaticDeclaration>
+                        </classStaticData>)
+        ...</classStaticVars>
         [structural]
+
+    syntax Stmt ::= "declareStmts" "(" Id "," Stmts ")" ";"
+                  | "declareStmt" "(" Id "," Stmt ")" ";"
+    
+    rule declareStmts(Class, S:Stmt); => declareStmt(Class, S); [structural]
+    rule declareStmts(Class, S:Stmt Es:Stmts); => declareStmt(Class, S);declareStmts(Class, Es); [structural]
+
+    rule <k> declareStmt(Class, def F:Id(Xs:Ids) S); => . ... </k>
+        <classStaticName> Class </classStaticName>
+        <classStaticDeclaration> Env => Env[F <- "function"] </classStaticDeclaration>
+
+    rule <k> declareStmt(Class, X:Id = V:Val ; ) ; => . ... </k>
+        <classStaticName> Class </classStaticName>
+        <classStaticDeclaration> Env => Env[X <- V] </classStaticDeclaration>
 
     rule <k> Class:Id(Vs:Vals) ~> K => create(Class) ~> storeObj ~> __init__(Vs); return self; </k>
         <env> Env => .Map </env>
@@ -71,4 +90,19 @@ module KPYTHON-SEMANTICS-CLASS
     rule isinstance(objectClosure(_, ListItem(envStackFrame(C,_)) _),C) => true
     rule isinstance(objectClosure(_, (ListItem(envStackFrame(C,_)) => .List) _),C')  when C =/=K C'  [structural]
     rule isinstance(objectClosure(_, .List),_) => false
+
+    // static variables
+    syntax KItem ::= "lookupd" "(" Id "," Id ")"
+    syntax KItem ::= "lookupenv" "(" Id "," Map ")"
+
+    rule <k> C:Id . Y:Id => lookupd(C, Y) ... </k>
+        <storeClass> StoreClass </storeClass>
+        when C in keys(StoreClass)      [structural]
+
+    rule <k> lookupd(C:Id, Y:Id) => lookupenv(Y, Env) ... </k>
+        <classStaticName> C </classStaticName>
+        <classStaticDeclaration> Env </classStaticDeclaration>
+
+    rule lookupenv(Y:Id, Y|->V:Val _) => V
+
 endmodule

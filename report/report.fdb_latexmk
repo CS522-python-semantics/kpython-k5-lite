@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1544939177 "/Users/qianyangpeng/Desktop/CS522/project/kpython-k5-lite/report/report.tex" "report.pdf" "report" 1544939229
-  "/Users/qianyangpeng/Desktop/CS522/project/kpython-k5-lite/report/report.tex" 1544939160 4897 0b08c513ca662f3a006e45ebc3edf58b ""
+["pdflatex"] 1545084013 "/Users/qianyangpeng/Desktop/CS522/project/kpython-k5-lite/report/report.tex" "report.pdf" "report" 1545084013
+  "/Users/qianyangpeng/Desktop/CS522/project/kpython-k5-lite/report/report.tex" 1545084012 6095 80b099c8e265e51699eb385d252bea55 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -19,6 +19,7 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1480098701 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1480098701 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1480098701 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1480098701 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1480098733 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1480098733 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb" 1480098733 32298 c6d25bb16d1eac01ebdc6d7084126a1e ""
@@ -28,6 +29,7 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1480098733 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1480098733 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1480098733 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1480098733 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1480098806 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2017/texmf-dist/tex/generic/babel-english/english.ldf" 1485295264 7008 fd11ed3b832df052a4adb2c56e472748 ""
   "/usr/local/texlive/2017/texmf-dist/tex/generic/babel/babel.def" 1495227874 56906 5fe966833cc01ad71361044f6df6de8f ""
@@ -137,9 +139,9 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1504707590 4129591 00cc5d2afb25dda76e2919b66dede0da ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "report.aux" 1544939178 1561 577c1364e2a7b3b323be9be607e2558b ""
-  "report.tex" 1544939160 4897 0b08c513ca662f3a006e45ebc3edf58b ""
+  "report.aux" 1545084013 1648 470c85ad0580a77dcea54a26398f05c6 ""
+  "report.tex" 1545084012 6095 80b099c8e265e51699eb385d252bea55 ""
   (generated)
-  "report.log"
-  "report.aux"
   "report.pdf"
+  "report.aux"
+  "report.log"

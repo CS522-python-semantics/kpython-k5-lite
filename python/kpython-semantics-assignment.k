@@ -22,7 +22,7 @@ module KPYTHON-SEMANTICS-ASSIGNMENT
   context (HOLE => checkl(HOLE)) = _
 
   rule <k> checkl(X:Id => loc(L)) ...</k> <env>... X |-> L:Int ...</env>   [structural]
-
+/*
   rule <k> checkl(X:Id => loc(L)) ...</k> 
       <env> Env </env>  
       <crntObj> 
@@ -30,16 +30,18 @@ module KPYTHON-SEMANTICS-ASSIGNMENT
                 <envStack> ListItem(envStackFrame(_, X|->L _)) _ </envStack> 
       </crntObj>  
       when notBool (X in keys(Env))  [structural]
-
   rule <k> checkl(X:Id) => initial(X) ~> checkl(X) ...</k> 
        <env> Env </env>  
        <envStack> ListItem(envStackFrame(_, ES)) _ </envStack> 
        when notBool (X in keys(Env)) andBool notBool (X in keys(ES))   [structural]  
-
   rule <k> checkl(X:Id) => initial(X) ~> checkl(X) ...</k> 
        <env> Env </env>  
        <envStack> .List </envStack> 
        when notBool (X in keys(Env))  [structural]  
+ */
+  rule <k> checkl(X:Id) => initial(X) ~> checkl(X) ...</k> 
+       <env> Env </env>
+       when notBool (X in keys(Env))  [structural]
 
   rule <k> loc(L) = V:Val => V ...</k> 
        <store>... L |-> (_ => V) ...</store> [assignment]

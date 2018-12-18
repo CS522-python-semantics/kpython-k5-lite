@@ -5,4 +5,5 @@ if [[ $# -eq 0 ]] ; then
 fi
 python parse/parse.py $1
 krun parse/parsed.python --output none
+#krun parse/parsed.python
 rm parse/parsed.python

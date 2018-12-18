@@ -4,8 +4,11 @@ all:
 test:
 	./testkpython
 
-clean: test-clean
-	rm -rf kpython-kompiled
-
 test-clean:
 	rm tmp/*
+
+run-clean:
+	rm -r .krun*
+
+clean:
+	rm -rf kpython-kompiled

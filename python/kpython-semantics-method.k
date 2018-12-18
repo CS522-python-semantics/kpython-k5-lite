@@ -30,8 +30,7 @@ module KPYTHON-SEMANTICS-METHOD
             <crntObj> Obj' => <crntClass> Class </crntClass> <envStack> EnvStack </envStack> </crntObj>
         </control>
 
-    syntax Val ::= "nothing"
-    rule return; => return nothing;   [macro]
+    rule return; => return None;   [macro]
 
     rule <k> return(V:Val); ~> _ => V ~> K </k>
         <control>

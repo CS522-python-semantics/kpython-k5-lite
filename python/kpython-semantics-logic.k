@@ -5,13 +5,13 @@ module KPYTHON-SEMANTICS-LOGIC
   imports KPYTHON-CONFIGURATION
   imports KPYTHON-SEMANTICS-ARITHMETIC
 
+
   syntax KResult ::= Val
   syntax KResult ::= Vals
 
   rule if E S => if E S else {}                                     [macro]
   rule def X:Id (self) B => def X (.Ids) B                              [macro]
   rule def X:Id (self, Y:Ids) B => def X (Y) B                [macro]
-  rule print(E:Exps); => iprint(E);iprint("\n");            [macro]
 
   rule if  true S else _ => S
   rule if false _ else S => S
@@ -25,10 +25,6 @@ module KPYTHON-SEMANTICS-LOGIC
   rule S1::Stmts S2::Stmts => S1 ~> S2  [structural]
 
   rule <k> read() => I ...</k> <input> ListItem(I:Int) => .List ...</input>            [read]
-
-  syntax Stmt ::= "iprint" "(" Exps ")" ";"              [strict]
-  rule <k> iprint(V:Val, Es => Es); ...</k> <output>... .List => ListItem(V) </output>  [print]
-  rule iprint(.Vals); => .                                               [structural]
 
   rule <k> X:Id => V ...</k>
       <env>... X |-> L ...</env>

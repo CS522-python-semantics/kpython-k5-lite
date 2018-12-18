@@ -5,6 +5,7 @@ require "kpython-semantics-method.k"
 require "kpython-semantics-object.k"
 require "kpython-semantics-calls.k"
 require "kpython-semantics-exception.k"
+require "kpython-semantics-print.k"
 
 module KPYTHON
   imports KPYTHON-SEMANTICS-ARITHMETIC
@@ -14,6 +15,8 @@ module KPYTHON
   imports KPYTHON-SEMANTICS-EXCEPTION 
   imports KPYTHON-SEMANTICS-OBJECT 
   imports KPYTHON-SEMANTICS-CALLS
+  imports KPYTHON-SEMANTICS-PRINT
+
 
   // rule <k> execute => . ...</k> 
   rule <k> execute => . ...</k> 

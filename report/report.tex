@@ -8,7 +8,7 @@
 
 \title{Python Semantics in K 5.0}
 
-\author{Your names and group number}
+\author{Qianyang Peng, Wenhua Lin}
 
 \date{\today}
 
@@ -19,7 +19,24 @@
 This is the report of the final project of CS522: Programming Language Semantics. We implemented a simple semantics for the Python Language, based on the Python Semantics implemented by Dwight Guth on K 3.2.1, and the untyped KOOL semantics for K 5.0.
 \end{abstract}
 
-\section{Basic K Syntax}
+\section{Introduction}
+For the course project of CS522, we implemented a simple python semantics for K framework 5.0. The structure of the whole project is based on the \emph{Python 3.3 Semantics} implemented by Dwight Guth on K 3.2.1. That is, we have a Makefile for compilation, a python script for source code preprocessing, and a bash file for script execution. For the implementation detail, including the K configuration, basic infrastructure and the implementation of some functionalities, our code is based on the \emph{KOOL} project for K 5.0, which is a small object oriented programming language syntax implemented by K team.
+
+We implemented the following python functionalities:
+
+\begin{enumerate}
+    \item Python code parser;
+    \item Python arithmic operator syntax and logical operator syntax;
+    \item Pythonic variable declaration;
+    \item Pythonic class;
+    \item Pythonic class instantiation;
+    \item Pythonic for loop and range;
+    \item Pythonic list and nested list;
+    \item Python print;
+    \item A test module that compares the output of our python framework with real python.
+\end{enumerate}
+
+\section{K Framework Syntax Overview}
 This section is a summary to the K tutorial.
 \subsection{Syntax}
 \subsubsection{Attributes}
@@ -96,3 +113,9 @@ Some identifiers could be put in the cell. For example:
 \end{itemize}
 
 \end{document}
+
+\subsection{Python class}
+
+class:
+static variable
+self.

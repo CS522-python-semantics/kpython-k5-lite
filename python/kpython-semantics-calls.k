@@ -20,6 +20,7 @@ module KPYTHON-SEMANTICS-CALLS
 
     rule (objectClosure(_, EStack) . X  => lookupMember(EStack, X:Id))(_:Exps)      [structural]
 
+
     // super().X(exps)
     rule <k> (super() . X => lookupMember(EStack,X))(_:Exps)...</k>
         <crntClass> Class </crntClass>

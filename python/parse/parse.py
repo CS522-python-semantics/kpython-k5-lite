@@ -27,9 +27,15 @@ for line in input:
         while indent and indent[-1]>=new_indent:
             new_line += " "*indent[-1] + "} \n"
             indent.pop()
-        new_line += line.strip('\n') + " ;" + " \n" 
+        if not line.strip().endswith(";"):
+            new_line += line.strip() + " ;" + " \n"
+        else:
+            new_line += line.strip() + " \n"
     else:
-        new_line = line.strip('\n') + ";" + " \n" 
+        if not line.strip().endswith(";"):
+            new_line += line.strip() + " ;" + " \n"
+        else:
+            new_line += line.strip() + " \n"
     if "#" in new_line:
         new_line = new_line[new_line.index("#")]+"\n"
     output.write(new_line)

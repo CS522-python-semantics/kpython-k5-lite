@@ -1,7 +1,7 @@
 module KPYTHON-SYNTAX
   imports DOMAINS-SYNTAX
 
-  syntax Id ::= "Object" [token] | "Main" [token] | "__init__" [token]
+  syntax Id ::= "Object" [token] | "Main" [token] | "__init__" [token] //legacy
 
   syntax Decl ::= "var" Exps ";"
                 | "def" Id "(" Ids ")" Block
@@ -77,8 +77,11 @@ module KPYTHON-SYNTAX
 
   syntax Stmts ::= Stmt
                  | Stmts Stmts                          [right]
-                 
-  syntax Val ::= Int | Bool | String | array(Int,Int) | "None"
+  
+  syntax SimpleVal ::= Int | Bool | String
+  syntax CombinedVal ::= array(Int,Int)
+  syntax NoneVal ::= "None"
+  syntax Val ::= SimpleVal | CombinedVal | NoneVal
   syntax Vals ::= List{Val,","}
   syntax Exp ::= Val
   syntax Exps ::= Vals

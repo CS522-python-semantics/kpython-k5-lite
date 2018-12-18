@@ -11,8 +11,8 @@ module KPYTHON-SEMANTICS-OBJECT
                  <envStack> ES </envStack> 
        </crntObj>
 
-  rule <k> X:Id => self . X ...</k> <env> Env:Map </env>
-    when notBool(X in keys(Env))  [structural]
+  // rule <k> X:Id => self . X ...</k> <env> Env:Map </env> [[mark]]
+  //   when notBool(X in keys(Env))  [structural]
   
   // self.X, object.X
   context HOLE._::Id when HOLE =/=K super()

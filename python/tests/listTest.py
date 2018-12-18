@@ -13,3 +13,5 @@ for element in a:
                 print("6, 7")
             else:
                 print(l)
+print([1])
+print(None)
