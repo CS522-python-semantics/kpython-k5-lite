@@ -36,9 +36,80 @@ For this course project we implemented the following components:
 \end{enumerate}
 
 \section{Python Semantics Overview}
-Python is an untyped object oriented programming language. Compared with KOOL, which is another untyped object oriented programming language implemented in K 5.0, python has some more intelligent and flexible language features. In our project, we mainly implemented the following language features:
+Python is an untyped object oriented programming language. Compared with a common untyped object oriented semantics in K framework, KOOL, python mainly has the following three language features that are more intelligent and flexible:
 
+\subsection{Variable Declaration}
 
+In KOOL, the syntax of variable declaration is like is JAVAScript. That is, we need to explicitly declare that a new identifier is a variable. For example:
+
+\begin{lstlisting}
+    var x;
+    x = 1;
+\end{lstlisting}
+
+For the code above, we can allocate the memory for variable \emph{x} on stack with the first statement, and then assign the integer value \emph{1} to \emph{x} with the second statement.
+
+Howeverm in python, we do not need the first statement. The only statement we need to do the same thing is:
+
+\begin{lstlisting}
+    x = 1
+\end{lstlisting}
+
+That is to say, python is able to intelligently detect whether a variable is already allocated in memory or not, and we do not need to explicitly declare a new variable.
+
+\subsection{Class Instantiation}
+
+In KOOL, the class instantiation operation is identified by the "new" keyword:
+
+\begin{lstlisting}
+    mary = new Student();
+\end{lstlisting}
+
+This distinguishes the instantiation of a class object from the function call. For example, if $Student()$ is the name of a function and we want to assign the return value of this function to variable $mary$, the code will be:
+
+\begin{lstlisting}
+    mary = Student();
+\end{lstlisting}
+
+However in python, there is no difference in syntax that an instantiation of a class object and a function call. The python code for the two operations above will be the same, which is:
+
+\begin{lstlisting}
+    mary = Student()
+\end{lstlisting}
+
+That is to say, python is able to intelligently detect whether a call by name is to a class or to a function. In our implementation, we should be able to do it automatically.
+
+\subsection{Class Variables}
+In KOOL, every variable declare in a class is considered as member variable, however in python, there are different types variables in class. For example, for the code below:
+
+\begin{lstlisting}
+class A:
+a = "Static Variable"
+def __init__(self):
+    a = "Local Variable"
+    self.a = "Member Variable"
+    print(self.a, "is Member Variable")
+    print(A.a, "is Static Variable")
+    print(a, "is Local Variable")
+
+print(A.a, "is initialized when declared")
+test1 = A()
+print(test1.a, "should print Member Variable")
+\end{lstlisting}
+
+In python, the output of the code above is:
+
+\begin{lstlisting}
+Static Variable is initialized when declared
+Member Variable is Member Variable
+Static Variable is Static Variable
+Local Variable is Local Variable
+Member Variable should print Member Variable
+\end{lstlisting}
+
+Therefore, when implementing the python semantics in K, we need different initialization strategies for different variable types. For static variables, which is declared inside a class definition and outside any class method, the memory is allocated and the value is initialized when the class is declared, thus we store the static variables in a separate configuration tag. For member variables, which is declared inside a class method and declared as "self.x", is bonded to objects thus should be stored inside the object closure. For the local variables, which is declared inside a method but without a "self.", should be just stored inside the current environments.
+
+\subsection{Other Functionalities}
 
 \section{K Framework Syntax Overview}
 K framework is a rewrite based semantic framework. As there is no official documentation for the latest version of K 5.0, here we briefly introduce the syntax we used in our python semantic implementation.
