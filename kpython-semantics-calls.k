@@ -9,11 +9,12 @@ module KPYTHON-SEMANTICS-CALLS
         <env>... X |-> L ...</env>
         <store>... L |-> V:Val ...</store>  [lookup]
 
-    rule <k> (X:Id => self . X)(_:Exps) ...</k>
+    /*rule <k> (X:Id => self . X)(_:Exps) ...</k>
         <env> Env </env>
         <storeClass> StoreClass </storeClass>
         when notBool(X in keys(Env)) andBool notBool(X in keys(StoreClass))  [structural]
-
+ */
+ 
     // the method application or array accesses are allowed as first argument to application
     // because methods are allowed to return methods and arrays are allowed to hold methods
     context HOLE._::Id(_) when HOLE =/=K super()
