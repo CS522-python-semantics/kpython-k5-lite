@@ -168,7 +168,27 @@ Side conditions can only be boolean expressions in K. It is declared after a K r
 \subsection{Configurations and Cells}
 Configuration are constructed with cells. It starts from a "configuration" keyword and being followed by some XML-style labels which indicates the start and return point of cells. It is very useful in our python semantic implementation because it makes it possible for us to implement more advanced language features such as input/output streams, static variables, variable declarations and object instantiations.
 
-\section{Technical Details}
+\section{Configurations}
+In the configuration we can define some data structures as the runtime memory of our program. In our implementation, we mainly have 5 configuration areas:
+
+\begin{enumerate}
+    \item $<env>$: This is the current local environment. It is a group of mappings from identifiers to the locations in $<store>$.
+    \item $<control>$: This is the memory when doing the control flow operations about the method closure and the object closure. For example, $<fstack>$ in it stores the environment when the program enters a function, and the memory state is restored from the function stack when the function is returned.
+    \item $<classes>$: This contains the definitions of and the inheritance relationship between classes.
+    \item $<storeClass>$: This contains a list the names of classes. We need it to distinguish a class identifier from a method identifier. As in python code class and method initialization is using the same syntax, we need this tag as a helper memory.
+    \item $<classStaticVars>$: This stores the static variables of classes. The memory here is initialized when the class is defined.
+\end{enumerate}
+
+\section{Project Structure}
+
+\begin{enumerate}
+    \item ./parse/parse.py: This script is the code parser that parses raw python code into the code that \emph{krun} can read. We need this because we find it difficult to let the K framework to handle the indents in the program to generate proper block. Also, it is more convenient to handle the comment in the code in the preprocessing step than handling the comments in the syntax rules.
+    \item ./kpython: This is a bash script that takes the name of a python file as input, and output the printing results of our python semantics. What it does is just to parse the python code and invokes krun to execute the parsed code.
+    \item ./tests: This is a folder of test python scripts. When running "make test", all scripts in it will be executed by python3 and our python framework, and the output result will be stored in the ./tmp folder. If the results are the same, the test case will be marked as "PASSED", otherwise it will be marked as "FAILED".
+    \item kpython-*.k: These files are the modularized definition of our python semantic.
+    \item Makefile: This is the makefile, we hope users can use it to compile the code and run tests.
+\end{enumerate}
+
 
 \section{Conclusion}
 
