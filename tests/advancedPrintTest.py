@@ -11,3 +11,11 @@ def print2():
 
 print2()
 print1()
+
+p = [3]*4
+p[2] = 4
+print (p)
+print (1<4)
+print (True)
+print ([3,4,None,7,"something", 5>6])
+print(None)

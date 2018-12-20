@@ -1,6 +1,8 @@
 # Testing new, constructor, method invocation.
 
 class C:
+  i = 0
+  j = 0
   def __init__(self, x):
     self.i = x
     self.j = x+1

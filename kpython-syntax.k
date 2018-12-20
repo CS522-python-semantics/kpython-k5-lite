@@ -11,6 +11,8 @@ module KPYTHON-SYNTAX
                 | "class" Id "(" Id ")" Block
 
   syntax Exp ::= Int | Bool | String | Id
+               | "True"
+               | "False"
                | "self"
                | "super" "(" ")"
                | "(" Exp ")"             [bracket]

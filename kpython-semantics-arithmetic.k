@@ -14,7 +14,9 @@ module KPYTHON-SEMANTICS-ARITHMETIC
   rule I1 <= I2 => I1 <=Int I2
   rule I1 > I2 => I1 >Int I2
   rule I1 >= I2 => I1 >=Int I2
-
+  rule True => true
+  rule False => false
+  
   rule V1:Val == V2:Val => V1 ==K V2
   rule V1:Val != V2:Val => V1 =/=K V2
   rule not T => notBool(T)
