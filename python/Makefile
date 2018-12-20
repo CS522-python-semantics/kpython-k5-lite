@@ -2,7 +2,6 @@ all:
 	kompile kpython.k
 
 test:
-	mkdir tmp
 	./testkpython
 
 test-clean:

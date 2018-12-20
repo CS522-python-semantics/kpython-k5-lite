@@ -3,6 +3,9 @@ TESTDIR="tests"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
+if [ ! -d "./tmp" ]; then
+    mkdir tmp
+fi
 for filename in `ls $TESTDIR/`; do
     echo "Running Test $filename"
     ./kpython $TESTDIR/$filename > tmp/$filename.kpython.out 2>/dev/null
