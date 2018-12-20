@@ -1,6 +1,0 @@
-print("1")
-print("11")
-print("111")
-print("11111")
-print("111111")
-print("1111111")

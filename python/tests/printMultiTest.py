@@ -1,5 +1,0 @@
-print(1,2,3,4,"hello")
-print(5,6,7,7,"hello")
-print(1,2,3,4,"hello")
-print(1,2,3,4,"hello")
-print(1,2,3,4,"hello")
