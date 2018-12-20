@@ -9,7 +9,7 @@ module KPYTHON-SEMANTICS-ASSIGNMENT
   rule E1 /= E2; => E1 = E1 / E2;                                   [macro]
   rule E1 %= E2; => E1 = E1 % E2;                                   [macro]
 
-  syntax KItem ::= "undefined"  [latex(\bot)]
+  syntax KItem ::= "undefined"
   syntax KItem ::= initial(Id)
   rule <k> initial(X:Id) => . ...</k>
        <env> Env => Env[X <- L] </env>

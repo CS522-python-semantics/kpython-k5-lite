@@ -9,4 +9,4 @@ for i in range(5, 10):
 
 p = [0] * 10
 p[0] = 10
-print(p)
+print(p[0], p[1], p[2], p[3])

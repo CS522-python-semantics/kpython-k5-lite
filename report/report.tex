@@ -30,7 +30,7 @@ For this course project we implemented the following components:
     \item Python variable declaration;
     \item Python class and object instantiation;
     \item Python for loop and range;
-    \item Python list and nested list;
+    \item Python array, nested array and array multiplication;
     \item Python print;
     \item A test module that compares the output of our python framework with real python.
 \end{enumerate}
@@ -111,6 +111,8 @@ Therefore, when implementing the python semantics in K, we need different initia
 
 \subsection{Other Functionalities}
 
+Apart from the three main functionalities stated above, we also implemented some other pythonic functionalities, for example the arrays and nested arrays, array multiplication with integers, and some syntactic sugars that is common in python.
+
 \section{K Framework Syntax Overview}
 K framework is a rewrite based semantic framework. As there is no official documentation for the latest version of K 5.0, here we briefly introduce the syntax we used in our python semantic implementation.
 \subsection{Module}
@@ -164,7 +166,13 @@ Side conditions can only be boolean expressions in K. It is declared after a K r
 "$==K$", "$>=K$", "$<=K$".
 
 \subsection{Configurations and Cells}
-Configuration are constructed with cells. It starts from a "configuration" keyword and being followed by some XML-style labels which indicates the start and return point of cells. It is very useful in our python semantic implementation because it makes it possible for us to implement more advanced language features such as input/output stream, static variables, variable declaration and object instantiation.
+Configuration are constructed with cells. It starts from a "configuration" keyword and being followed by some XML-style labels which indicates the start and return point of cells. It is very useful in our python semantic implementation because it makes it possible for us to implement more advanced language features such as input/output streams, static variables, variable declarations and object instantiations.
+
+\section{Technical Details}
+
+\section{Conclusion}
+
+For the course project of CS522, we learned to use K framework 5.0 and practiced to implement a popular programming language semantic. With the help of configuration, we are able to implement more complicated environments and rules that defines more advanced programming language behaviors.
 
 \end{document}
 
