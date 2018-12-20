@@ -12,6 +12,18 @@ https://github.com/kframework/python-semantics
 
 But we are not using it, because we find it hard to get it compiled in K 5.0, and it is too complicated for us to fully understand it.
 
+Here is a list of functionalities that we implemented:
+
+1. Python code parser;
+2. Static, local and member variable implementation;
+3. Python style variable declaration;
+4. Class and object instantiation; 
+5. For loop and range;
+6. Array, nested array and array multiplication;
+7. Python print;
+2. Python arithmetic operator syntax and logical operator syntax;
+8. A test module that compares the output of our python framework with real python.
+
 For the details of our implementation, please refer to our report:
 
 https://github.com/CS522-python-semantics/kpython-k5-lite/blob/master/report/report.pdf
