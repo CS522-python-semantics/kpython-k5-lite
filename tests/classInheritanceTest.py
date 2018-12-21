@@ -1,4 +1,5 @@
 class A:
+    a = 9
     def __init__(self):
         self.a = 10
 
